@@ -22,9 +22,11 @@ class PokemonEntity(models.Model):
     lat = models.FloatField('Широта')
     lon = models.FloatField('Долгота')
 
+    pokemon = models.ForeignKey('Pokemon', on_delete=models.CASCADE, null=True)
+
     class Meta:
         verbose_name = 'Координаты покемона'
         verbose_name_plural = 'Координаты покемонов'
 
     def __str__(self):
-        return f'{str(self.lat)} - {str(self.lon)}'
+        return f'{self.pokemon.title} - {str(self.lat)} - {str(self.lon)}'
