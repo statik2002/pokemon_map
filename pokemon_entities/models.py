@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 
 class Pokemon(models.Model):
@@ -23,6 +24,9 @@ class PokemonEntity(models.Model):
     lon = models.FloatField('Долгота')
 
     pokemon = models.ForeignKey('Pokemon', on_delete=models.CASCADE, null=True)
+
+    appeared_at = models.DateField(default=timezone.now)
+    disappeared_at = models.DateField(default=timezone.now)
 
     class Meta:
         verbose_name = 'Координаты покемона'
