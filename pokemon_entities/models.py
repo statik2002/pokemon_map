@@ -14,10 +14,6 @@ class Pokemon(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-
-        return reverse('pokemon:show_pokemon/', kwargs={'pk': self.pk})
-
 
 class PokemonEntity(models.Model):
     lat = models.FloatField('Широта')
