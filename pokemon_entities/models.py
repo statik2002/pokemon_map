@@ -14,4 +14,4 @@ class Pokemon(models.Model):
 
     def get_absolute_url(self):
 
-        return reverse('pokemon', kwargs={'pk': self.pk})
+        return reverse('pokemon:show_pokemon/', kwargs={'pk': self.pk})

@@ -2,6 +2,8 @@ from django.urls import path
 
 from pokemon_entities import views
 
+app_name = 'pokemon_entities'
+
 urlpatterns = [
-    path('pokemon/<pokemon_id>/', views.show_pokemon, name='pokemon'),
+    path('show_pokemon/<int:pokemon_id>', views.show_pokemon, name='show_pokemon'),
 ]
