@@ -5,7 +5,7 @@ from django.utils import timezone
 
 class Pokemon(models.Model):
     title = models.CharField('Наименование покемона', max_length=200)
-    image = models.ImageField('Изображение покемона', upload_to='media/pokemons_images', blank=True, null=True)
+    image = models.ImageField('Изображение покемона', upload_to='pokemons_images/', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Покемон'
