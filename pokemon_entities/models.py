@@ -16,3 +16,15 @@ class Pokemon(models.Model):
     def get_absolute_url(self):
 
         return reverse('pokemon:show_pokemon/', kwargs={'pk': self.pk})
+
+
+class PokemonEntity(models.Model):
+    lat = models.FloatField('Широта')
+    lon = models.FloatField('Долгота')
+
+    class Meta:
+        verbose_name = 'Координаты покемона'
+        verbose_name_plural = 'Координаты покемонов'
+
+    def __str__(self):
+        return f'{str(self.lat)} - {str(self.lon)}'
