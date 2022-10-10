@@ -34,8 +34,8 @@ def show_all_pokemons(request):
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
 
-    query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime())
-    pokemons_entity = PokemonEntity.objects.filter(query)
+    pokemon_entities_query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime())
+    pokemons_entity = PokemonEntity.objects.filter(pokemon_entities_query)
     pokemons_on_page = Pokemon.objects.all()
 
     for pokemon in pokemons_entity:
@@ -55,22 +55,22 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
 
     try:
-        pokemon_query = Pokemon.objects.get(pk=pokemon_id)
+        current_pokemon = Pokemon.objects.get(pk=pokemon_id)
     except ObjectDoesNotExist:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
 
     query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime())
-    pokemons_entity = PokemonEntity.objects.filter(pokemon=pokemon_query).filter(query)
+    pokemons_entity = PokemonEntity.objects.filter(pokemon=current_pokemon).filter(query)
 
     pokemon = {
-        'title': pokemon_query.title,
-        'image': pokemon_query.image,
-        'title_en': pokemon_query.title_en,
-        'title_jp': pokemon_query.title_jp,
-        'title_ru': pokemon_query.title_ru,
-        'description': pokemon_query.description,
-        'next_evolution': pokemon_query.next_evolution.all().first(),
-        'previous_evolution': pokemon_query.previous_evolution
+        'title': current_pokemon.title,
+        'image': current_pokemon.image,
+        'title_en': current_pokemon.title_en,
+        'title_jp': current_pokemon.title_jp,
+        'title_ru': current_pokemon.title_ru,
+        'description': current_pokemon.description,
+        'next_evolution': current_pokemon.next_evolution.all().first(),
+        'previous_evolution': current_pokemon.previous_evolution
     }
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
