@@ -11,6 +11,8 @@ class Pokemon(models.Model):
     title_ru = models.CharField('Заголовок на Русском', max_length=200, null=True)
     description = models.TextField('Описание', default='Нет описания')
 
+    previous_evolution = models.ForeignKey('self', on_delete=models.CASCADE, verbose_name='Эволюционировал от', null=True, blank=True)
+
     class Meta:
         verbose_name = 'Покемон'
         verbose_name_plural = 'Покемоны'

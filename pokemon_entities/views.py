@@ -68,7 +68,7 @@ def show_pokemon(request, pokemon_id):
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
-            pokemon.image.path
+            pokemon.image.path,
         )
 
     return render(request, 'pokemon.html', context={
