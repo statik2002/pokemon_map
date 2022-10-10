@@ -7,7 +7,7 @@ class Pokemon(models.Model):
 
     class Meta:
         verbose_name = 'Покемон'
-        verbose_name_plural = 'Покемон'
+        verbose_name_plural = 'Покемоны'
 
     def __str__(self):
         return self.title
