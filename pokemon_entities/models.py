@@ -28,6 +28,12 @@ class PokemonEntity(models.Model):
     appeared_at = models.DateField(default=timezone.now)
     disappeared_at = models.DateField(default=timezone.now)
 
+    level = models.IntegerField('Уровень', default=1)
+    health = models.IntegerField('Здоровье', default=100)
+    strength = models.IntegerField('Сила', default=1)
+    defence = models.IntegerField('Защита', default=1)
+    stamina = models.IntegerField('Выносливость', default=1)
+
     class Meta:
         verbose_name = 'Координаты покемона'
         verbose_name_plural = 'Координаты покемонов'
