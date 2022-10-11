@@ -2,7 +2,7 @@ import folium
 import json
 
 from django.db.models import Q
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import localtime
 from django.core.exceptions import ObjectDoesNotExist
@@ -54,10 +54,11 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
 
-    current_pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
-
-    query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime()) and Q(pokemon=current_pokemon)
+    query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime()) and Q(pokemon_id=pokemon_id)
     pokemons_entities = PokemonEntity.objects.filter(query)
+    if not pokemons_entities:
+        raise Http404('Нет таких покемонов')
+    current_pokemon = pokemons_entities.first().pokemon
 
     pokemon = {
         'image': current_pokemon.image,

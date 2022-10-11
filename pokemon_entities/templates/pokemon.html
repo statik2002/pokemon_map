@@ -42,7 +42,7 @@
                 </div>
               {% endif %}
               {% if pokemon.next_evolution %}
-                <span>{{pokemon.next_evolution.pokemon.title}}</span>
+                <span>{{pokemon.next_evolution.pokemon.title_ru}}</span>
                 <div class="col-5 clearfix p-2 m-2">
                   <div class="img-thumbnail">
                     <a href="{% url 'pokemon' pokemon.next_evolution.pk %}">
@@ -65,7 +65,7 @@
             {% for element in pokemon.element_type%}
               <div>
                 <img class="pull-left mr-2 float-left" style="height:20px;width:20px;" src="{{element.img}}">
-                <p>{{element.title}}, силён против: {{element.strong_against|join:", "}}</p>
+                <p>{{element.title_ru}}, силён против: {{element.strong_against|join:", "}}</p>
               </div>
             {% endfor %}
           </div>
@@ -74,7 +74,7 @@
     </div>
 
 
-    <h1 class="mt-5 mb-2">Карта {{pokemon.title}} в Москве</h1>
+    <h1 class="mt-5 mb-2">Карта {{pokemon.title_ru}} в Москве</h1>
     <div class="mb-5">
       {{map|safe}}  
     </div>

@@ -23,7 +23,7 @@ class Pokemon(models.Model):
         verbose_name_plural = 'Покемоны'
 
     def __str__(self):
-        return self.title
+        return self.title_ru
 
 
 class PokemonEntity(models.Model):
@@ -35,7 +35,7 @@ class PokemonEntity(models.Model):
         on_delete=models.CASCADE,
         null=True,
         verbose_name='Покемон',
-        related_name='pokemons'
+        related_name='pokemon'
     )
 
     appeared_at = models.DateField('Время появления', default=timezone.now)
@@ -52,4 +52,4 @@ class PokemonEntity(models.Model):
         verbose_name_plural = 'Координаты покемонов'
 
     def __str__(self):
-        return f'{self.pokemon.title} - {str(self.lat)} - {str(self.lon)}'
+        return f'{self.pokemon.title_ru} - {str(self.lat)} - {str(self.lon)}'
