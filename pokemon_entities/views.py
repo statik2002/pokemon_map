@@ -63,7 +63,6 @@ def show_pokemon(request, pokemon_id):
     pokemons_entity = PokemonEntity.objects.filter(pokemon=current_pokemon).filter(query)
 
     pokemon = {
-        'title': current_pokemon.title,
         'image': current_pokemon.image,
         'title_en': current_pokemon.title_en,
         'title_jp': current_pokemon.title_jp,
