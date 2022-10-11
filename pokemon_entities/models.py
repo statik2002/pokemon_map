@@ -15,7 +15,7 @@ class Pokemon(models.Model):
         verbose_name='Эволюционировал от',
         null=True,
         blank=True,
-        related_name='next_evolution'
+        related_name='next_evolutions'
     )
 
     class Meta:
@@ -30,16 +30,22 @@ class PokemonEntity(models.Model):
     lat = models.FloatField('Широта')
     lon = models.FloatField('Долгота')
 
-    pokemon = models.ForeignKey('Pokemon', on_delete=models.CASCADE, null=True, verbose_name='Покемон')
+    pokemon = models.ForeignKey(
+        'Pokemon',
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name='Покемон',
+        related_name='pokemons'
+    )
 
     appeared_at = models.DateField('Время появления', default=timezone.now)
     disappeared_at = models.DateField('Время исчезновения', default=timezone.now)
 
-    level = models.IntegerField('Уровень', default=1)
-    health = models.IntegerField('Здоровье', default=100)
-    strength = models.IntegerField('Сила', default=1)
-    defence = models.IntegerField('Защита', default=1)
-    stamina = models.IntegerField('Выносливость', default=1)
+    level = models.IntegerField('Уровень')
+    health = models.IntegerField('Здоровье')
+    strength = models.IntegerField('Сила')
+    defence = models.IntegerField('Защита')
+    stamina = models.IntegerField('Выносливость')
 
     class Meta:
         verbose_name = 'Координаты покемона'
