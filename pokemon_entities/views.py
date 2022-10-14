@@ -1,7 +1,7 @@
 import folium
 import json
 
-from django.db.models import Q
+from django.db.models import Q, Model
 from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import localtime
@@ -54,20 +54,21 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
 
-    query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime()) and Q(pokemon_id=pokemon_id)
-    pokemons_entities = PokemonEntity.objects.filter(query)
+    pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+
+    query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime())
+    pokemons_entities = pokemon.pokemon_entities.filter(query)
     if not pokemons_entities:
         raise Http404('Нет таких покемонов')
-    current_pokemon = pokemons_entities.first().pokemon
 
-    pokemon = {
-        'image': current_pokemon.image,
-        'title_en': current_pokemon.title_en,
-        'title_jp': current_pokemon.title_jp,
-        'title_ru': current_pokemon.title_ru,
-        'description': current_pokemon.description,
-        'next_evolution': current_pokemon.next_evolutions.all().first(),
-        'previous_evolution': current_pokemon.previous_evolution
+    pokemon_description = {
+        'image': pokemon.image,
+        'title_en': pokemon.title_en,
+        'title_jp': pokemon.title_jp,
+        'title_ru': pokemon.title_ru,
+        'description': pokemon.description,
+        'next_evolution': pokemon.next_evolutions.all().first(),
+        'previous_evolution': pokemon.previous_evolution
     }
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
@@ -76,9 +77,9 @@ def show_pokemon(request, pokemon_id):
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
-            pokemon['image'].path,
+            pokemon_description['image'].path,
         )
 
     return render(request, 'pokemon.html', context={
-        'map': folium_map._repr_html_(), 'pokemon': pokemon
+        'map': folium_map._repr_html_(), 'pokemon': pokemon_description
     })

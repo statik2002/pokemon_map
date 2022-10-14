@@ -35,21 +35,21 @@ class PokemonEntity(models.Model):
         on_delete=models.CASCADE,
         null=True,
         verbose_name='Покемон',
-        related_name='pokemon'
+        related_name='pokemon_entities'
     )
 
     appeared_at = models.DateField('Время появления', default=timezone.now)
     disappeared_at = models.DateField('Время исчезновения', default=timezone.now)
 
-    level = models.IntegerField('Уровень')
-    health = models.IntegerField('Здоровье')
-    strength = models.IntegerField('Сила')
-    defence = models.IntegerField('Защита')
-    stamina = models.IntegerField('Выносливость')
+    level = models.IntegerField('Уровень', blank=True)
+    health = models.IntegerField('Здоровье', blank=True)
+    strength = models.IntegerField('Сила', blank=True)
+    defence = models.IntegerField('Защита', blank=True)
+    stamina = models.IntegerField('Выносливость', blank=True)
 
     class Meta:
         verbose_name = 'Координаты покемона'
         verbose_name_plural = 'Координаты покемонов'
 
     def __str__(self):
-        return f'{self.pokemon.title_ru} - {str(self.lat)} - {str(self.lon)}'
+        return f'{self.pokemon.title_ru} - {self.lat} - {self.lon}'
