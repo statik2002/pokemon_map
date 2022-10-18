@@ -57,7 +57,7 @@ def show_pokemon(request, pokemon_id):
     pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
 
     query = Q(appeared_at__gte=localtime()) and Q(disappeared_at__lte=localtime())
-    pokemons_entities = pokemon.pokemon_entities.filter(query)
+    pokemons_entities = pokemon.entities.filter(query)
     if not pokemons_entities:
         raise Http404('Нет таких покемонов')
 
